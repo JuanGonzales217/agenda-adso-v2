@@ -147,7 +147,7 @@ function App() {
 
         <footer className="mt-8 text-xs text-gray-400">
           <p>Desarrollo Web – ReactJS | Proyecto Agenda ADSO</p>
-          <p>Instructor: Gustavo Adolfo Bolaños Dorado</p>
+          <p>Desarrollador: Juan Horacio Gonzales Arboleda</p>
         </footer>
       </div>
     </div>
