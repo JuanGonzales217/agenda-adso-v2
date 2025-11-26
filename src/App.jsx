@@ -1,9 +1,11 @@
+// Archivo: src/App.jsx
 import { useEffect, useState } from "react";
 import { listarContactos, crearContacto, eliminarContactoPorId } from "./api";
+import { APP_INFO } from "./config";
 import FormularioContacto from "./components/FormularioContacto";
 import ContactoCard from "./components/ContactoCard";
 
-export default function App() {
+function App() {
   const [contactos, setContactos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
@@ -32,8 +34,8 @@ export default function App() {
       setContactos((prev) => [...prev, creado]);
     } catch (err) {
       console.error("Error al crear contacto:", err);
-      setError("No se pudo guardar el contacto. Verifica tu conexión o el estado del servidor e intenta nuevamente.");
-      throw err; // permite que el formulario gestione 'enviando'
+      setError("No se pudo guardar el contacto. Verifica tu conexión o el estado del servidor.");
+      throw err;
     }
   };
 
@@ -52,11 +54,11 @@ export default function App() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 py-8">
         <header className="mb-8">
-          <p className="text-xs tracking-[0.3em] text-gray-500 uppercase">Desarrollo Web ReactJS Ficha 3223876</p>
-          <h1 className="text-4xl font-extrabold text-gray-900 mt-2">Agenda ADSO v6</h1>
-          <p className="text-sm text-gray-600 mt-1">
-            Gestión de contactos conectada a una API local con JSON Server, ahora con validaciones y mejor experiencia de usuario.
+          <p className="text-xs tracking-[0.3em] text-gray-500 uppercase">
+            Desarrollo Web ReactJS Ficha {APP_INFO.ficha}
           </p>
+          <h1 className="text-4xl font-extrabold text-gray-900 mt-2">{APP_INFO.titulo}</h1>
+          <p className="text-sm text-gray-600 mt-1">{APP_INFO.subtitulo}</p>
         </header>
 
         {error && (
@@ -72,9 +74,7 @@ export default function App() {
             <FormularioContacto onAgregar={onAgregarContacto} />
             <section className="space-y-4">
               {contactos.length === 0 ? (
-                <p className="text-sm text-gray-500">
-                  Aún no tienes contactos registrados. Agrega el primero usando el formulario superior.
-                </p>
+                <p className="text-sm text-gray-500">Aún no tienes contactos registrados. Agrega el primero usando el formulario superior.</p>
               ) : (
                 contactos.map((c) => (
                   <ContactoCard
@@ -99,3 +99,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;
