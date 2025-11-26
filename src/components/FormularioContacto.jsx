@@ -45,6 +45,7 @@ export default function FormularioContacto({ onAgregar }) {
 
   const input = "w-full rounded-xl border-gray-300 focus:ring-purple-500 focus:border-purple-500";
   const label = "block text-sm font-medium text-gray-700 mb-1";
+  
 
   return (
     <form className="bg-white shadow-sm rounded-2xl p-6 space-y-4 mb-8" onSubmit={onSubmit}>
