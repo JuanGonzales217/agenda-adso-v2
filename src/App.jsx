@@ -1,35 +1,92 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import {
+  listarContactos,
+  crearContacto,
+  eliminarContactoPorId,
+} from "./api.js";
 import FormularioContacto from "./components/FormularioContacto";
 import ContactoCard from "./components/ContactoCard";
 
 export default function App() {
-  const contactosGuardados = JSON.parse(localStorage.getItem("contactos")) || [];
-  const [contactos, setContactos] = useState(contactosGuardados);
+  const [contactos, setContactos] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("contactos", JSON.stringify(contactos));
-  }, [contactos]);
+    async function cargarContactos() {
+      try {
+        const data = await listarContactos();
+        setContactos(data);
+      } catch (error) {
+        console.error(error);
+        setError("No se pudo cargar la lista de contactos");
+      } finally {
+        setCargando(false);
+      }
+    }
+    cargarContactos();
+  }, []);
 
-  const agregarContacto = (nuevo) => {
-    setContactos((prev) => [...prev, nuevo]);
+  const agregarContacto = async (nuevo) => {
+    try {
+      const creado = await crearContacto(nuevo);
+      setContactos((prev) => [...prev, creado]);
+    } catch (error) {
+      console.error(error);
+      setError("No se pudo agregar el contacto");
+    }
   };
 
-  const eliminarContacto = (correo) => {
-    setContactos((prev) => prev.filter((c) => c.correo !== correo));
+  const eliminarContacto = async (id) => {
+    try {
+      await eliminarContactoPorId(id);
+      setContactos((prev) => prev.filter((c) => c.id !== id));
+    } catch (error) {
+      console.error(error);
+      setError("No se pudo eliminar el contacto");
+    }
   };
 
   return (
-    <main className="max-w-3xl mx-auto px-4 py-8 space-y-6">
-      <h1 className="text-center text-3xl font-bold text-purple-600">
-        Agenda ADSO v4
-      </h1>
+    <main className="min-h-screen bg-gray-50">
+      <header className="max-w-6xl mx-auto px-6 pt-8">
+        <p className="text-sm font-semibold text-gray-400 tracking-[0.25em] uppercase">
+          Programa ADSO
+        </p>
+        <h1 className="text-4xl md:text-5xl font-black text-gray-900 mt-2">
+          Agenda ADSO v5
+        </h1>
+        <p className="text-gray-500 mt-1">
+          Gestión de contactos conectada a una API local con JSON Server.
+        </p>
+      </header>
 
-      <FormularioContacto onAgregar={agregarContacto} />
+      <section className="max-w-6xl mx-auto px-6 py-8 space-y-6">
+        {error && (
+          <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+            {error}
+          </div>
+        )}
 
-      <section className="space-y-4">
-        {contactos.map((c) => (
-          <ContactoCard key={c.correo} {...c} onEliminar={eliminarContacto} />
-        ))}
+        {cargando && (
+          <div className="rounded-xl bg-purple-50 border border-purple-200 px-4 py-3 text-sm text-purple-700">
+            Cargando contactos desde la API...
+          </div>
+        )}
+
+        <FormularioContacto onAgregar={agregarContacto} />
+
+        <div className="space-y-4">
+          {contactos.length === 0 && !cargando && (
+            <p className="text-gray-500 text-sm">
+              No hay contactos aún. Agrega el primero usando el formulario.
+            </p>
+          )}
+
+          {contactos.map((c) => (
+            <ContactoCard key={c.id} {...c} onEliminar={() => eliminarContacto(c.id)} />
+          ))}
+        </div>
       </section>
     </main>
   );

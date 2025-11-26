@@ -1,0 +1,18 @@
+{
+  "contactos": [
+    {
+      "id": "417d",
+      "nombre": "sofia",
+      "telefono": "20000000000000",
+      "correo": "juanhoraciogonzalesarboledfa@gmail.com",
+      "etiqueta": "nutghj"
+    },
+    {
+      "id": "f04a",
+      "nombre": "Juliana Giraldo Arias",
+      "telefono": "300 312 1712",
+      "correo": "JuliaArias@fiuru.com",
+      "etiqueta": "Panadera"
+    }
+  ]
+}
