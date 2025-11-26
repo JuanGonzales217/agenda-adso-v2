@@ -13,6 +13,13 @@
       "telefono": "300 312 1712",
       "correo": "JuliaArias@fiuru.com",
       "etiqueta": "Panadera"
+    },
+    {
+      "id": "fdde",
+      "nombre": "Felipe",
+      "telefono": "3206923310",
+      "correo": "felipe@miot.com",
+      "etiqueta": ""
     }
   ]
 }
