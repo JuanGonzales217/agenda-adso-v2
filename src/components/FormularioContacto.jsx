@@ -3,53 +3,52 @@ import { useState } from "react";
 export default function FormularioContacto({ onAgregar }) {
   const [form, setForm] = useState({
     nombre: "",
-    correo: "",
     telefono: "",
+    correo: "",
     etiqueta: "",
   });
 
   const onChange = (e) => {
-    const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const onSubmit = (e) => {
-    e.preventDefault(); // evita recargar
-    if (!form.nombre.trim() || !form.telefono.trim()) {
-      alert("Completa al menos Nombre y Teléfono");
-      return;
-    }
-    onAgregar(form); // App agrega id y actualiza la lista
-    setForm({ nombre: "", correo: "", telefono: "", etiqueta: "" }); // limpiar
+    e.preventDefault();
+    if (!form.nombre || !form.telefono || !form.correo) return;
+    onAgregar(form);
+    setForm({ nombre: "", telefono: "", correo: "", etiqueta: "" });
   };
 
   return (
-    <form onSubmit={onSubmit} className="form-contacto">
+    <form className="form" onSubmit={onSubmit}>
       <input
         name="nombre"
-        placeholder="Nombre"
         value={form.nombre}
         onChange={onChange}
+        placeholder="Nombre"
       />
       <input
         name="telefono"
-        placeholder="Teléfono"
         value={form.telefono}
         onChange={onChange}
+        placeholder="Teléfono"
       />
       <input
         name="correo"
-        placeholder="Correo"
         value={form.correo}
         onChange={onChange}
+        placeholder="Correo"
       />
       <input
         name="etiqueta"
-        placeholder="Etiqueta (opcional)"
         value={form.etiqueta}
         onChange={onChange}
+        placeholder="Etiqueta opcional"
       />
-      <button type="submit">Agregar contacto</button>
+      <button className="btn-agregar">Agregar contacto</button>
     </form>
   );
 }

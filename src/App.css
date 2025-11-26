@@ -1,16 +1,75 @@
-.app-container { max-width: 520px; margin: 2rem auto; font-family: Arial, sans-serif; }
-.app-title { color:#008037; text-align:center; margin-bottom:1rem; }
+:root {
+  --morado: #7c3aed;
+  --morado-oscuro: #5b21b6;
+  --gris: #f5f5f7;
+  --borde: #d1d5db;
+  --radio: 10px;
+}
 
-.form-contacto { display:flex; flex-direction:column; gap:8px; margin-bottom:20px; }
-.form-contacto input { padding:8px; border-radius:6px; border:1px solid #ccc; font-size:14px; }
-.form-contacto button { background:#008037; color:#fff; border:0; padding:10px; border-radius:6px; cursor:pointer; }
-.form-contacto button:hover { background:#006b2f; }
+body {
+  background: var(--gris);
+  font-family: system-ui, Arial, sans-serif;
+}
 
-.tarjeta-contacto { border:1px solid #ddd; border-radius:8px; padding:1rem; background:#fff; margin-bottom:.5rem; display:flex; flex-direction:column; gap:4px; }
-.tarjeta-contacto h3 { color:#008037; margin:0 0 .3rem; }
-.tarjeta-contacto .dato { margin:0; color:#333; }
-.tarjeta-contacto .tag { margin:0; color:#555; font-size:0.9rem; }
+.app-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
 
-.tarjeta-contacto .acciones { margin-top:8px; display:flex; justify-content:flex-end; }
-.btn-eliminar { background:#c62828; color:#fff; border:0; padding:.5rem .75rem; border-radius:6px; cursor:pointer; }
-.btn-eliminar:hover { background:#8e0000; }
+.app-title {
+  color: var(--morado-oscuro);
+  margin-bottom: 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.form input {
+  padding: 10px;
+  border-radius: var(--radio);
+  border: 1px solid var(--borde);
+  font-size: 14px;
+  background: #fff;
+}
+
+.btn-agregar {
+  background: var(--morado);
+  color: white;
+  border: 0;
+  padding: 10px;
+  border-radius: var(--radio);
+  cursor: pointer;
+}
+
+.btn-agregar:hover {
+  background: var(--morado-oscuro);
+}
+
+.card {
+  background: #fff;
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: var(--radio);
+  border: 1px solid var(--borde);
+  text-align: left;
+}
+
+.btn-eliminar {
+  background: #dc2626;
+  color: white;
+  border: 0;
+  padding: 8px 12px;
+  border-radius: var(--radio);
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.btn-eliminar:hover {
+  background: #b91c1c;
+}
